@@ -1,8 +1,9 @@
 Fabric
 Flask-SQLAlchemy
+SQLAlchemy-serializer
 Flask-WTF
-WTForms
-coverage
+# WTForms
+# coverage
 # ecdsa
 # paramiko
 # pycrypto

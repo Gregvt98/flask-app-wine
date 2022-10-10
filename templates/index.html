@@ -1,71 +1,110 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
 
-{% block content %}
-<div class="container-fluid pb-3 flex-grow-1 flex-column flex-sm-row overflow-auto">
-    <div class="row flex-grow-sm-1 flex-grow-0">
-        <aside class="col-sm-2 flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0 pb-3">
-            <div class="bg-light border rounded-3 p-1 h-100 sticky-top">
-                <h3>Filter</h3>
-                <div class="container">
-                    <h4>Primary taste</h4>
-                    <form>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="primarytaste" id="RedFruit">
-                            <label class="form-check-label" for="RedFruit">
-                                Red fruit
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="primarytaste" id="BlackFruit">
-                            <label class="form-check-label" for="BlackFruit">
-                                Black fruit
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="primarytaste" id="TreeFruit">
-                            <label class="form-check-label" for="TreeFruit">
-                                Tree fruit
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="primarytaste" id="TropicalFruit">
-                            <label class="form-check-label" for="TropicalFruit">
-                                Tropical fruit
-                            </label>
-                        </div>
-                    </form>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Index page</title>
 
-                </div>
-            </div>
-        </aside>
-        <main class="col overflow-auto h-100">
-            <div class="p-3">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
-                <!-- Amount of rows-->
-                {% for row in data | batch(4) %}
-                    <div class="row align-items-start">
-                  
-                        <!-- Amount of columns-->
-                        {% for column in row %}
-                        <div class="col-md-3 p-2">
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{url_for('static', filename='wine_bottle.png')}}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{column[0]}}</h5>
-                                    <p class="card-text"><b>Variety:</b> {{column[1]}}</p>
-                                    <p class="card-text"><b>Country:</b> {{column[2]}}</p>
-                                    <p class="card-text"><b>Description:</b> {{column[3]}}</p>
-                                    <a href="#" class="btn btn-primary">See wine</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-        </main>
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+  </head>
+  <body>
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Album example</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
     </div>
-</div>
+  </section>
 
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for wine in pagination.items %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            <div class="card-body">
+              <p class="card-text">{{wine.title}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="/wine/{{wine.id}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">{{wine.variety}} - {{wine.year}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <section class="py-5 text-center container">
+  <div class="container">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+            {% if pagination.page == page_num %}
+              <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a></li>
+            {% endif %}
+          {% else %}
+            ...
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</section>
+  
+
+</main>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      
+  </body>
+</html>
 
 {% endblock %}

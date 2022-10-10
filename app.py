@@ -29,10 +29,6 @@ def shutdown_session(exception=None):
 # Controllers.
 #----------------------------------------------------------------------------#
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 # Error handlers.
 
 @app.errorhandler(500)
@@ -59,10 +55,17 @@ if not app.debug:
 # Custom routes.
 #----------------------------------------------------------------------------#
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    page = request.args.get('page', 1, type=int)
+    pagination = db.session.query(Wine).order_by(Wine.title).paginate(
+        page, per_page=9)
+    return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
 @app.route('/wine/<int:id>')
 def wine(id):
@@ -78,6 +81,33 @@ def wine_list(limit):
     wines = db.session.query(Wine).limit(limit).all()
     results = [w.to_dict() for w in wines]
     return jsonify(results)
+
+"""
+
+@app.route('/paginated_results')
+def wines():
+ ROWS_PER_PAGE = 5
+ page = request.args.get('page', 1, type = int)
+ 
+ wines = db.session.query(Wine).paginate(page = page, per_page = ROWS_PER_PAGE)
+ paginated_wines =(wines.items)
+ 
+ results = [{
+   'id':wine.id,
+   'title':wine.title,
+   'description':wine.description
+ } for wine in paginated_wines]
+ 
+ return jsonify({
+   'success':True,
+   'results':results,
+   'count':len(paginated_wines)
+ })
+
+"""
+
+
+
 
 #----------------------------------------------------------------------------#
 # Launch.

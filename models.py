@@ -31,7 +31,7 @@ class Wine(Base, SerializerMixin):
 
     id = db.Column(db.BigInteger, primary_key=True)
     title = db.Column(db.Text, unique=True)
-    year = db.Column(db.Float)
+    year = db.Column(db.BigInteger)
     country = db.Column(db.Text)
     region_1 = db.Column(db.Text)
     designation = db.Column(db.Text)
