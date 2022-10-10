@@ -67,6 +67,13 @@ def index():
         page, per_page=9)
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
+### search endpoint
+@app.route('/search') 
+def search():
+    query = request.args.get('search') 
+    req_search = db.session.query(Wine).filter_by(id=query) ### filter on multiple fields
+    return render_template('search.html', req_search=req_search)
+
 @app.route('/wine/<int:id>')
 def wine(id):
     "Takes an id, return product page"
