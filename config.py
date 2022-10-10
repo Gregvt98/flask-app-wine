@@ -3,6 +3,10 @@ import os
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+# development mode
+FLASK_ENV = 'development'
+TESTING = True
+
 # Enable debug mode.
 DEBUG = True
 
@@ -12,3 +16,4 @@ SECRET_KEY = 'my precious'
 
 # Connect to the database
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False

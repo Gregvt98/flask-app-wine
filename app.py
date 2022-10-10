@@ -2,12 +2,13 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
-# from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
-from forms import *
 import os
+
+from models import *
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -15,7 +16,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -24,62 +25,25 @@ def shutdown_session(exception=None):
     db_session.remove()
 '''
 
-# Login required decorator.
-'''
-def login_required(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('login'))
-    return wrap
-'''
 #----------------------------------------------------------------------------#
 # Controllers.
 #----------------------------------------------------------------------------#
 
-
-@app.route('/')
-def home():
-    return render_template('pages/placeholder.home.html')
-
-
 @app.route('/about')
 def about():
-    return render_template('pages/placeholder.about.html')
-
-
-@app.route('/login')
-def login():
-    form = LoginForm(request.form)
-    return render_template('forms/login.html', form=form)
-
-
-@app.route('/register')
-def register():
-    form = RegisterForm(request.form)
-    return render_template('forms/register.html', form=form)
-
-
-@app.route('/forgot')
-def forgot():
-    form = ForgotForm(request.form)
-    return render_template('forms/forgot.html', form=form)
+    return render_template('about.html')
 
 # Error handlers.
-
 
 @app.errorhandler(500)
 def internal_error(error):
     #db_session.rollback()
-    return render_template('errors/500.html'), 500
+    return render_template('500.html'), 500
 
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('errors/404.html'), 404
+    return render_template('404.html'), 404
 
 if not app.debug:
     file_handler = FileHandler('error.log')
@@ -90,6 +54,30 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
+
+#----------------------------------------------------------------------------#
+# Custom routes.
+#----------------------------------------------------------------------------#
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/wine/<int:id>')
+def wine(id):
+    "Takes an id, return product page"
+    wine = db.session.query(Wine).get(id)
+    wine_d = wine.to_dict()
+    return render_template('product.html', wine=wine_d)
+
+
+@app.route('/wine/list/<int:limit>')
+def wine_list(limit):
+    "Takes a limit, return a list of wines"
+    wines = db.session.query(Wine).limit(limit).all()
+    results = [w.to_dict() for w in wines]
+    return jsonify(results)
 
 #----------------------------------------------------------------------------#
 # Launch.
