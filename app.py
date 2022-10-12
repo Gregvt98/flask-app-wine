@@ -67,6 +67,19 @@ def index():
         page=1, per_page=9)
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
+#page for filters
+#@app.route('/?filter=<country>')
+@app.route('/filter')
+def filtered_page_for_country():
+    #country = request.args.get('country')
+    page = request.args.get('page', 1, type=int)
+    pagination = db.session.query(Wine).filter(Wine.country == 'Italy').order_by(Wine.title).paginate(
+        page=1, per_page=9)
+    return render_template('filter.html', pagination=pagination, count = len(pagination.items))
+
+
+
+
 ### search endpoint
 @app.route('/search') 
 def search():
