@@ -59,6 +59,10 @@ if not app.debug:
 def about():
     return render_template('about.html')
 
+@app.route('/ontology')
+def ontology():
+    return render_template('ontology.html')
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -79,6 +83,9 @@ def wine(id):
     "Takes an id, return product page"
     wine = db.session.query(Wine).get(id)
     wine_d = wine.to_dict()
+    print(type(wine_d))
+    print(wine_d.keys())
+    print(wine_d["title"])
     return render_template('product.html', wine=wine_d)
 
 
