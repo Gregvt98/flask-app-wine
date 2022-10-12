@@ -68,15 +68,48 @@ def index():
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
 #page for filters
-#@app.route('/?filter=<country>')
 @app.route('/filter')
 def filtered_page_for_country():
-    #country = request.args.get('country')
-    page = request.args.get('page', 1, type=int)
-    pagination = db.session.query(Wine).filter(Wine.country == 'Italy').order_by(Wine.title).paginate(
-        page=1, per_page=9)
-    return render_template('filter.html', pagination=pagination, count = len(pagination.items))
 
+    #examples for routes to call
+    #/filter?country=Italy
+    #/filter?country=Italy+USA
+    #/filter?country=Italy&variety=Syrah
+
+    #get filter parameters from URL
+    country_filter = request.args.get('country')
+    variety_filter = request.args.get('variety')
+    primary_filter = request.args.get('primaries')
+    secundary_filter = request.args.get('secundaries')
+    tertiary_filter = request.args.get('tertiaries')
+
+
+    #filtering
+    data = db.session.query(Wine)
+    
+    if country_filter is not None:
+        data = data.filter(Wine.country == country_filter)
+    if variety_filter is not None:
+        data = data.filter(Wine.variety == variety_filter)
+    """
+    if country_filter is not None:
+        data = data.filter(Wine.country == country_filter)
+    if country_filter is not None:
+        data = data.filter(Wine.country == country_filter)
+    if country_filter is not None:
+        data = data.filter(Wine.country == country_filter)
+    """
+        
+    data = data.order_by(Wine.title)
+
+    #pagination
+    page = request.args.get('page', 1, type=int)
+    pagination = data.paginate(page=1, per_page=9)
+    return render_template('filter.html', 
+                           pagination=pagination, 
+                           count = len(pagination.items),  
+                           filter_1 = country_filter, 
+                           filter_2 = variety_filter)
 
 
 

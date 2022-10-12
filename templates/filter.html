@@ -40,16 +40,35 @@
     <main>
 
         <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Wine Classification</h1>
-                    <p class="lead text-muted">Organizing wines according to taste profiles</p>
-                    <p>
-                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                    </p>
+
+            <form action="http://127.0.0.1:5000/filter" method="GET">
+                <div class="row py-lg-5">
+                    <div class="col-lg-2 col-md-2 mx-auto">
+                        <p>Country</p>
+                        {% for i in ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada'] %}
+                            {% if filter_1 == '{{i}}' %}
+                            <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
+                            <label for="{{i}}">{{i}}</label><br />
+                            {% else %}
+                            <input type="radio" id="{{i}}" name="country" value="{{i}}" />
+                            <label for="{{i}}">{{i}}</label><br />
+                            {% endif %}
+                        {%endfor%}
+
+                    </div>
+                    <div class="col-lg-2 col-md-2 mx-auto">
+                        <p>Variety</p>
+                        <p class="lead text-muted">{{filter_2}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 mx-auto">
+                        <p>Primary Notes</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 mx-auto">
+                        <p>Secundary Notes</p>
+                    </div>
                 </div>
-            </div>
+                <input type="submit" value="Search" class="btn btn-primary my-2"></input>
+            </form>
         </section>
 
         <div class="album py-5 bg-light">
