@@ -64,7 +64,7 @@ def about():
 def index():
     page = request.args.get('page', 1, type=int)
     pagination = db.session.query(Wine).order_by(Wine.title).paginate(
-        page, per_page=9)
+        page=1, per_page=9)
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
 ### search endpoint
