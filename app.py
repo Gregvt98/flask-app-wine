@@ -8,7 +8,7 @@ import logging
 from logging import Formatter, FileHandler
 import os
 
-from models import *
+import models
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -59,12 +59,17 @@ if not app.debug:
 def about():
     return render_template('about.html')
 
+@app.route('/ontology')
+def ontology():
+    return render_template('ontology.html')
+
 @app.route('/')
 @app.route('/index')
 def index():
     page = request.args.get('page', 1, type=int)
     pagination = db.session.query(Wine).order_by(Wine.title).paginate(
         page=1, per_page=9)
+
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
 #page for filters
@@ -117,21 +122,22 @@ def filtered_page_for_country():
 @app.route('/search') 
 def search():
     query = request.args.get('search') 
-    req_search = db.session.query(Wine).filter_by(id=query) ### filter on multiple fields
-    return render_template('search.html', req_search=req_search)
+    req_search = db.session.query(models.Wine).filter_by(id=query) ### filter on multiple fields
+    return render_template('search.html', req_search=req_search) 
 
 @app.route('/wine/<int:id>')
-def wine(id):
+def get_wine(id):
     "Takes an id, return product page"
-    wine = db.session.query(Wine).get(id)
-    wine_d = wine.to_dict()
-    return render_template('product.html', wine=wine_d)
+    entry = db.session.query(models.Wine).get(id)
+    wine_d = entry.to_dict()
+    return jsonify(wine_d)
+    #return render_template('product.html', result=wine_d)
 
 
 @app.route('/wine/list/<int:limit>')
 def wine_list(limit):
     "Takes a limit, return a list of wines"
-    wines = db.session.query(Wine).limit(limit).all()
+    wines = db.session.query(models.Wine).limit(limit).all()
     results = [w.to_dict() for w in wines]
     return jsonify(results)
 
