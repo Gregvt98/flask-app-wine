@@ -43,37 +43,80 @@
 
             <form action="/filter" method="GET">
                 <div class="row py-lg-5">
+
+                    <!-- Country filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:darkblue">
                         <p>Country</p>
                         {% for i in list_of_countries %}
-                        {% if country_filter == '{{i}}' %}
-                        <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
-                        <label for="{{i}}">{{i}}</label><br />
+                        {% if country_filter == i %}
+                            <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
+                            <label for="{{i}}">{{i}}</label><br />
                         {% else %}
-                        <input type="radio" id="{{i}}" name="country" value="{{i}}" />
-                        <label for="{{i}}">{{i}}</label><br />
+                            <input type="radio" id="{{i}}" name="country" value="{{i}}" />
+                            <label for="{{i}}">{{i}}</label><br />
                         {% endif %}
                         {%endfor%}
 
                     </div>
+
+                    <!-- Variety filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <p>Variety</p>
-                        <p class="lead text-muted">{{variety_filter}}</p>
+                        {% for i in list_of_varieties %}
+                        {% if variety_filter == i %}
+                        <input type="radio" id="{{i}}" name="variety" value="{{i}}" checked />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% else %}
+                        <input type="radio" id="{{i}}" name="variety" value="{{i}}" />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% endif %}
+                        {%endfor%}
                     </div>
+
+                    <!-- Primary note filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:red">
                         <p>Primary Notes</p>
-                        <p class="lead text-muted">{{primary_filter}}</p>
+                        {% for i in list_of_primaries %}
+                        {% if primary_filter == i %}
+                        <input type="radio" id="{{i}}" name="primary" value="{{i}}" checked />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% else %}
+                        <input type="radio" id="{{i}}" name="primary" value="{{i}}" />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% endif %}
+                        {%endfor%}
                     </div>
+
+                    <!-- Secundary note filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:orange">
                         <p>Secundary Notes</p>
-                        <p class="lead text-muted">{{secundary_filter}}</p>
+                        {% for i in list_of_secundaries %}
+                        {% if secundary_filter == i %}
+                        <input type="radio" id="{{i}}" name="secundary" value="{{i}}" checked />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% else %}
+                        <input type="radio" id="{{i}}" name="secundary" value="{{i}}" />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% endif %}
+                        {%endfor%}
                     </div>
+
+                    <!-- Tertiary note filter column-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:saddlebrown">
                         <p>Tertiary Notes</p>
-                        <p class="lead text-muted">{{tertiary_filter}}</p>
+                        {% for i in list_of_tertiaries %}
+                        {% if tertiary_filter == i %}
+                        <input type="radio" id="{{i}}" name="tertiary" value="{{i}}" checked />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% else %}
+                        <input type="radio" id="{{i}}" name="tertiary" value="{{i}}" />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% endif %}
+                        {%endfor%}
                     </div>
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary my-2"></input>
+                <a href="{{url_for('filter_page')}}" class="btn btn-secondary my-2">See all wines</a>
             </form>
         </section>
 
