@@ -83,8 +83,8 @@ def get_wine(id):
     "Takes an id, return product page"
     entry = db.session.query(models.Wine).get(id)
     wine_d = entry.to_dict()
-    return jsonify(wine_d)
-    #return render_template('product.html', result=wine_d)
+    #return jsonify(wine_d)
+    return render_template('product.html', result=wine_d)
 
 
 @app.route('/wine/list/<int:limit>')
