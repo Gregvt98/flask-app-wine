@@ -84,17 +84,17 @@ def filter_page():
 
     #page filters
     list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
-    #list_of_varieties = ['']
-    #list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
-    #list_of_secundaries = ['Microbial']
-    #list_of_tertiaries = ['Oak Aging', 'General Aging']
+    list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
+    list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
+    list_of_secundaries = ['Microbial']
+    list_of_tertiaries = ['Oak Aging', 'General Aging']
 
     #get filter parameters from URL
     country_filter = request.args.get('country')
     variety_filter = request.args.get('variety')
-    primary_filter = request.args.get('primaries')
-    secundary_filter = request.args.get('secundaries')
-    tertiary_filter = request.args.get('tertiaries')
+    primary_filter = request.args.get('primary')
+    secundary_filter = request.args.get('secundary')
+    tertiary_filter = request.args.get('tertiary')
 
     #filtering
     data = db.session.query(models.Wine)
@@ -122,6 +122,10 @@ def filter_page():
                            pagination=pagination, 
                            count = len(pagination.items), 
                            list_of_countries = list_of_countries,
+                           list_of_varieties = list_of_varieties,
+                           list_of_primaries = list_of_primaries, 
+                           list_of_secundaries = list_of_secundaries,
+                           list_of_tertiaries = list_of_tertiaries,
                            country_filter = country_filter, 
                            variety_filter = variety_filter,
                            primary_filter = primary_filter,
