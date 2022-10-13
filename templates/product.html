@@ -142,24 +142,28 @@
     {
       "@context": "https://schema.org/",
       "@type": "Product",
-      "name": "{{wine.title}}",
-      "description": "Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height.",
+      "name": "{{result.title}}",
+      "description": "result.description",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "primaryFlavor": "Cherry"
+      },
       "review": {
         "@type": "Review",
         "reviewRating": {
           "@type": "Rating",
-          "ratingValue": "{{wine.points}}",
-          "bestRating": "5"
+          "ratingValue": "{{result.points}}",
+          "bestRating": "{{result.points}}"
         },
         "author": {
           "@type": "Person",
-          "name": "Fred Benson"
+          "name": "{{result.taster_name}}"
         }
       },
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "4.4",
-        "reviewCount": "89"
+        "ratingValue": "{{result.points}}",
+        "reviewCount": "1"
       }
     }
 </script>
