@@ -67,19 +67,27 @@ def ontology():
 @app.route('/index')
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = db.session.query(Wine).order_by(Wine.title).paginate(
+    pagination = db.session.query(models.Wine).order_by(models.Wine.title).paginate(
         page=1, per_page=9)
 
     return render_template('index.html', pagination=pagination, count = len(pagination.items))
 
 #page for filters
 @app.route('/filter')
-def filtered_page_for_country():
+def filter_page():
 
     #examples for routes to call
     #/filter?country=Italy
     #/filter?country=Italy+USA
     #/filter?country=Italy&variety=Syrah
+
+
+    #page filters
+    list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
+    #list_of_varieties = ['']
+    #list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
+    #list_of_secundaries = ['Microbial']
+    #list_of_tertiaries = ['Oak Aging', 'General Aging']
 
     #get filter parameters from URL
     country_filter = request.args.get('country')
@@ -88,33 +96,38 @@ def filtered_page_for_country():
     secundary_filter = request.args.get('secundaries')
     tertiary_filter = request.args.get('tertiaries')
 
-
     #filtering
-    data = db.session.query(Wine)
+    data = db.session.query(models.Wine)
     
     if country_filter is not None:
-        data = data.filter(Wine.country == country_filter)
+        data = data.filter(models.Wine.country == country_filter)
     if variety_filter is not None:
-        data = data.filter(Wine.variety == variety_filter)
+        data = data.filter(models.Wine.variety == variety_filter)
     """
-    if country_filter is not None:
-        data = data.filter(Wine.country == country_filter)
-    if country_filter is not None:
-        data = data.filter(Wine.country == country_filter)
-    if country_filter is not None:
-        data = data.filter(Wine.country == country_filter)
+    if primary_filter is not None:
+        data = data.filter(Wine.country == primary_filter)
+    if secundary_filter is not None:
+        data = data.filter(Wine.country == secundary_filter)
+    if tertiary_filter is not None:
+        data = data.filter(Wine.country == tertiary_filter)
     """
-        
-    data = data.order_by(Wine.title)
+    data = data.order_by(models.Wine.title)
 
     #pagination
     page = request.args.get('page', 1, type=int)
     pagination = data.paginate(page=1, per_page=9)
+
+    #return template with variables
     return render_template('filter.html', 
                            pagination=pagination, 
-                           count = len(pagination.items),  
-                           filter_1 = country_filter, 
-                           filter_2 = variety_filter)
+                           count = len(pagination.items), 
+                           list_of_countries = list_of_countries,
+                           country_filter = country_filter, 
+                           variety_filter = variety_filter,
+                           primary_filter = primary_filter,
+                           secundary_filter = secundary_filter,
+                           tertiary_filter = tertiary_filter
+                           )
 
 
 
