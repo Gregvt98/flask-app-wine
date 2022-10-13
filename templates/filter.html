@@ -43,28 +43,34 @@
 
             <form action="/filter" method="GET">
                 <div class="row py-lg-5">
-                    <div class="col-lg-2 col-md-2 mx-auto">
+                    <div class="col-lg-2 col-md-2 mx-auto" style="color:darkblue">
                         <p>Country</p>
-                        {% for i in ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada'] %}
-                            {% if filter_1 == '{{i}}' %}
-                            <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
-                            <label for="{{i}}">{{i}}</label><br />
-                            {% else %}
-                            <input type="radio" id="{{i}}" name="country" value="{{i}}" />
-                            <label for="{{i}}">{{i}}</label><br />
-                            {% endif %}
+                        {% for i in list_of_countries %}
+                        {% if country_filter == '{{i}}' %}
+                        <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% else %}
+                        <input type="radio" id="{{i}}" name="country" value="{{i}}" />
+                        <label for="{{i}}">{{i}}</label><br />
+                        {% endif %}
                         {%endfor%}
 
                     </div>
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <p>Variety</p>
-                        <p class="lead text-muted">{{filter_2}}</p>
+                        <p class="lead text-muted">{{variety_filter}}</p>
                     </div>
-                    <div class="col-lg-2 col-md-2 mx-auto">
+                    <div class="col-lg-2 col-md-2 mx-auto" style="color:red">
                         <p>Primary Notes</p>
+                        <p class="lead text-muted">{{primary_filter}}</p>
                     </div>
-                    <div class="col-lg-2 col-md-2 mx-auto">
+                    <div class="col-lg-2 col-md-2 mx-auto" style="color:orange">
                         <p>Secundary Notes</p>
+                        <p class="lead text-muted">{{secundary_filter}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 mx-auto" style="color:saddlebrown">
+                        <p>Tertiary Notes</p>
+                        <p class="lead text-muted">{{tertiary_filter}}</p>
                     </div>
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary my-2"></input>
@@ -85,7 +91,7 @@
                                     <div class="btn-group">
                                         <a href="/wine/{{wine.id}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                                     </div>
-                                    <small class="text-muted">{{wine.variety}} - TASTE</small>
+                                    <small class="text-muted">{{wine.country}} - {{wine.variety}} - TASTE</small>
                                 </div>
                             </div>
                         </div>
