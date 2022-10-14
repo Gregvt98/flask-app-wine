@@ -11,6 +11,8 @@
     <title>Index page</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
 
 
 
@@ -31,6 +33,78 @@
                 font-size: 3.5rem;
             }
         }
+
+
+        ul.ks-cboxtags {
+            list-style: none;
+            padding: 20px;
+        }
+
+            ul.ks-cboxtags li {
+                display: inline;
+            }
+
+                ul.ks-cboxtags li label {
+                    display: inline-block;
+                    background-color: rgba(255, 255, 255, .9);
+                    border: 2px solid rgba(139, 139, 139, .3);
+                    color: #adadad;
+                    border-radius: 25px;
+                    white-space: nowrap;
+                    margin: 3px 0px;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    -webkit-tap-highlight-color: transparent;
+                    transition: all .2s;
+                }
+
+                ul.ks-cboxtags li label {
+                    padding: 8px 12px;
+                    cursor: pointer;
+                }
+
+                    ul.ks-cboxtags li label::before {
+                        display: inline-block;
+                        font-style: normal;
+                        font-variant: normal;
+                        text-rendering: auto;
+                        -webkit-font-smoothing: antialiased;
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        font-size: 12px;
+                        padding: 2px 6px 2px 2px;
+                        content: "\f067";
+                        transition: transform .3s ease-in-out;
+                    }
+
+                ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+                    content: "\f00c";
+                    transform: rotate(-360deg);
+                    transition: transform .3s ease-in-out;
+                }
+
+                ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+                    border: 2px solid #1bdbf8;
+                    background-color: #12bbd4;
+                    color: #fff;
+                    transition: all .2s;
+                }
+
+                ul.ks-cboxtags li input[type="checkbox"] {
+                    display: absolute;
+                }
+
+                ul.ks-cboxtags li input[type="checkbox"] {
+                    position: absolute;
+                    opacity: 0;
+                }
+
+                    ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+                        border: 2px solid #e9a1ff;
+                    }
     </style>
 
 
@@ -47,72 +121,131 @@
                     <!-- Country filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:darkblue">
                         <p>Country</p>
-                        {% for i in list_of_countries %}
-                        {% if country_filter == i %}
-                            <input type="radio" id="{{i}}" name="country" value="{{i}}" checked />
-                            <label for="{{i}}">{{i}}</label><br />
-                        {% else %}
-                            <input type="radio" id="{{i}}" name="country" value="{{i}}" />
-                            <label for="{{i}}">{{i}}</label><br />
-                        {% endif %}
-                        {%endfor%}
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_countries %}
+                            {% if country_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="country" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="country" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
 
                     </div>
 
                     <!-- Variety filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <p>Variety</p>
-                        {% for i in list_of_varieties %}
-                        {% if variety_filter == i %}
-                        <input type="radio" id="{{i}}" name="variety" value="{{i}}" checked />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% else %}
-                        <input type="radio" id="{{i}}" name="variety" value="{{i}}" />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% endif %}
-                        {%endfor%}
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_varieties %}
+                            {% if variety_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
                     </div>
 
-                    <!-- Primary note filter column -->
+                    <!-- Primary note filter column part 1-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:red">
                         <p>Primary Notes</p>
-                        {% for i in list_of_primaries %}
-                        {% if primary_filter == i %}
-                        <input type="radio" id="{{i}}" name="primary" value="{{i}}" checked />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% else %}
-                        <input type="radio" id="{{i}}" name="primary" value="{{i}}" />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% endif %}
-                        {%endfor%}
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_primaries[0:6] %}
+                            {% if primary_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
+                    </div>
+
+                    <!-- Primary note filter column part 2-->
+                    <div class="col-lg-2 col-md-2 mx-auto" style="color:red">
+                        <p>Primary Notes</p>
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_primaries[6:] %}
+                            {% if primary_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
                     </div>
 
                     <!-- Secundary note filter column -->
-                    <div class="col-lg-2 col-md-2 mx-auto" style="color:orange">
+                    <div class="col-lg-2 col-md-2 mx-auto">
                         <p>Secondary Notes</p>
-                        {% for i in list_of_secundaries %}
-                        {% if secundary_filter == i %}
-                        <input type="radio" id="{{i}}" name="secundary" value="{{i}}" checked />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% else %}
-                        <input type="radio" id="{{i}}" name="secundary" value="{{i}}" />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% endif %}
-                        {%endfor%}
-                    </div>
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_secundaries %}
+                            {% if secundary_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="secundary" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="secundary" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
 
-                    <!-- Tertiary note filter column-->
-                    <div class="col-lg-2 col-md-2 mx-auto" style="color:saddlebrown">
                         <p>Tertiary Notes</p>
-                        {% for i in list_of_tertiaries %}
-                        {% if tertiary_filter == i %}
-                        <input type="radio" id="{{i}}" name="tertiary" value="{{i}}" checked />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% else %}
-                        <input type="radio" id="{{i}}" name="tertiary" value="{{i}}" />
-                        <label for="{{i}}">{{i}}</label><br />
-                        {% endif %}
-                        {%endfor%}
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_tertiaries %}
+                            {% if tertiary_filter == i %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="tertiary" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="tertiary" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
                     </div>
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary my-2"></input>
@@ -151,9 +284,9 @@
                         {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                         {% if page_num %}
                         {% if pagination.page == page_num %}
-                        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num) }}&{{request.query_string.decode()}}">{{ page_num }}</a></li>
                         {% else %}
-                        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num) }}&{{request.query_string.decode()}}">{{ page_num }}</a></li>
                         {% endif %}
                         {% else %}
                         ...
