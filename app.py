@@ -10,6 +10,7 @@ import os
 
 import models
 import random
+import itertools
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -72,14 +73,14 @@ def index():
     list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
     list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
     list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
-    list_of_secundaries = ['Microbial']
+    list_of_secondaries = ['Microbial']
     list_of_tertiaries = ['Oak Aging', 'General Aging']
 
     #random values for randomized search result
     random_country = random.choice(list_of_countries)
     random_variety = random.choice(list_of_varieties)
     random_primary = random.choice(list_of_primaries)
-    random_secundary = random.choice(list_of_secundaries)
+    random_secondary = random.choice(list_of_secondaries)
     random_tertiary = random.choice(list_of_tertiaries)
 
     #pagination
@@ -93,7 +94,7 @@ def index():
                            random_country = random_country,
                            random_variety = random_variety,
                            random_primary = random_primary,
-                           random_secundary = random_secundary,
+                           random_secondary = random_secondary,
                            random_tertiary = random_tertiary)
 
 #page for filters
@@ -110,15 +111,15 @@ def filter_page():
     list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
     list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
     list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
-    list_of_secundaries = ['Microbial']
+    list_of_secondaries = ['Microbial']
     list_of_tertiaries = ['Oak Aging', 'General Aging']
 
     #get filter parameters from URL
     country_filter = request.args.get('country')
     variety_filter = request.args.get('variety')
-    primary_filter = request.args.get('primary')
-    secundary_filter = request.args.get('secundary')
-    tertiary_filter = request.args.get('tertiary')
+    primary_filter = request.args.getlist('primary')
+    secondary_filter = request.args.getlist('secondary')
+    tertiary_filter = request.args.getlist('tertiary')
 
     #filtering
     data = db.session.query(models.Wine)
@@ -127,19 +128,43 @@ def filter_page():
         data = data.filter(models.Wine.country == country_filter)
     if variety_filter is not None:
         data = data.filter(models.Wine.variety == variety_filter)
-    """
-    if primary_filter is not None:
-        data = data.filter(Wine.country == primary_filter)
-    if secundary_filter is not None:
-        data = data.filter(Wine.country == secundary_filter)
-    if tertiary_filter is not None:
-        data = data.filter(Wine.country == tertiary_filter)
-    """
+    
+    #Filtering for .getlist object is different because you need to check if there is an empty list or not.
+    if primary_filter:
+        for f in primary_filter:
+            data = data.filter(models.Wine.primary_flavor.contains(f))
+    
+    if secondary_filter:
+        for f in secondary_filter:
+            data = data.filter(models.Wine.secondary_flavor.contains(f))
+
+    if tertiary_filter:
+        for f in tertiary_filter:
+            data = data.filter(models.Wine.tertiary_flavor.contains(f))
+
+
     data = data.order_by(models.Wine.title)
 
     #pagination
     page = request.args.get('page', 1, type=int)
     pagination = data.paginate(page=1, per_page=9)
+
+    #remove Nonetypes
+    if country_filter is None:
+        country_filter = ['0']
+
+    if variety_filter is None:
+        variety_filter = ['0']
+
+    if primary_filter is None:
+        primary_filter = ['0']
+
+    if secondary_filter is None:
+        secondary_filter = ['0']
+
+    if tertiary_filter is None:
+        tertiary_filter = ['0']
+        
 
     #return template with variables
     return render_template('filter.html', 
@@ -148,12 +173,12 @@ def filter_page():
                            list_of_countries = list_of_countries,
                            list_of_varieties = list_of_varieties,
                            list_of_primaries = list_of_primaries, 
-                           list_of_secundaries = list_of_secundaries,
+                           list_of_secondaries = list_of_secondaries,
                            list_of_tertiaries = list_of_tertiaries,
                            country_filter = country_filter, 
                            variety_filter = variety_filter,
                            primary_filter = primary_filter,
-                           secundary_filter = secundary_filter,
+                           secondary_filter = secondary_filter,
                            tertiary_filter = tertiary_filter
                            )
 
