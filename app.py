@@ -9,6 +9,7 @@ from logging import Formatter, FileHandler
 import os
 
 import models
+import random
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -66,11 +67,34 @@ def ontology():
 @app.route('/')
 @app.route('/index')
 def index():
+
+    #page filters
+    list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
+    list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
+    list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
+    list_of_secundaries = ['Microbial']
+    list_of_tertiaries = ['Oak Aging', 'General Aging']
+
+    #random values for randomized search result
+    random_country = random.choice(list_of_countries)
+    random_variety = random.choice(list_of_varieties)
+    random_primary = random.choice(list_of_primaries)
+    random_secundary = random.choice(list_of_secundaries)
+    random_tertiary = random.choice(list_of_tertiaries)
+
+    #pagination
     page = request.args.get('page', 1, type=int)
     pagination = db.session.query(models.Wine).order_by(models.Wine.title).paginate(
         page=1, per_page=9)
 
-    return render_template('index.html', pagination=pagination, count = len(pagination.items))
+    return render_template('index.html', 
+                           pagination=pagination, 
+                           count = len(pagination.items),
+                           random_country = random_country,
+                           random_variety = random_variety,
+                           random_primary = random_primary,
+                           random_secundary = random_secundary,
+                           random_tertiary = random_tertiary)
 
 #page for filters
 @app.route('/filter')
