@@ -3,7 +3,7 @@ from models import Wine
 import pandas as pd
 
 
-df = pd.read_csv('data/final_dataset_wines.csv')
+df = pd.read_csv('data/final_dataset_wines_annotated.csv')
 
 df = df.head(100)
 

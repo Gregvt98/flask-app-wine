@@ -5,12 +5,15 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy_serializer import SerializerMixin
 from app import db
 
+import pandas as pd
+
 engine = create_engine('sqlite:///database.db', echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
+
 
 # Set your classes here.
 
@@ -41,9 +44,25 @@ class Wine(Base, SerializerMixin):
     price = db.Column(db.Float)
     taster_name = db.Column(db.Text)
     taster_twitter_handle = db.Column(db.Text)
+    primary_flavor = db.Column(db.Text)
+    secondary_flavor = db.Column(db.Text)
+    tertiary_flavor = db.Column(db.Text)
 
     def __init__(self, title=None):
         self.title = title
 
 # Create tables.
 Base.metadata.create_all(bind=engine)
+
+"""
+df = pd.read_csv('data/final_dataset_wines_annotated.csv')
+
+#df = df.head(100)
+
+df.rename(columns={'Unnamed: 0':'id'}, inplace=True)
+
+print(df.columns)
+
+data = df.to_dict('records')
+db.engine.execute(Wine.__table__.insert(), data)
+"""

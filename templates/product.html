@@ -3,6 +3,39 @@
 
 {% block content %}
 
+<head>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{result.title}}",
+      "description": "result.description",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "primaryFlavor": "Cherry"
+      },
+      "review": {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "{{result.points}}",
+          "bestRating": "100"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "{{result.taster_name}}"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{result.points}}",
+        "reviewCount": "1"
+      }
+    }
+</script>
+</head>
+
+<body>
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
       <div class="row gx-4 gx-lg-5 align-items-center">
@@ -17,9 +50,15 @@
               <div class="fs-5 mb-5">
               <span class="medium mb-1">Main Flavors: </span>
               <!--change colors-->
-              <a href="{{url_for('ontology')}}"><span class="badge rounded-pill bg-secondary">Primary</span></a>
-              <span class="badge rounded-pill bg-secondary">Secondary</span>
-              <span class="badge rounded-pill bg-secondary">Tertiary</span>
+              {% if result.primary_flavor %}
+              <a href="{{url_for('ontology')}}"><span class="badge rounded-pill bg-secondary">{{result.primary_flavor}}</span></a>
+              {% endif %}
+              {% if result.secondary_flavor %}
+              <span class="badge rounded-pill bg-secondary">{{result.secondary_flavor}}</span>
+              {% endif %}
+              {% if result.tertiary_flavor %}
+              <span class="badge rounded-pill bg-secondary">{{result.tertiary_flavor}}</span>
+              {% endif %}
               </div>
               <div class="d-flex">
                   <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">
@@ -145,35 +184,7 @@
       </div>
   </div>
 </section>
+</body>
 
 {% endblock %}
 
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": "{{result.title}}",
-      "description": "result.description",
-      "additionalProperty": {
-        "@type": "PropertyValue",
-        "primaryFlavor": "Cherry"
-      },
-      "review": {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "{{result.points}}",
-          "bestRating": "{{result.points}}"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "{{result.taster_name}}"
-        }
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "{{result.points}}",
-        "reviewCount": "1"
-      }
-    }
-</script>
