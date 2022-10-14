@@ -115,8 +115,8 @@ def filter_page():
     list_of_tertiaries = ['Oak Aging', 'General Aging']
 
     #get filter parameters from URL
-    country_filter = request.args.get('country')
-    variety_filter = request.args.get('variety')
+    country_filter = request.args.getlist('country')
+    variety_filter = request.args.getlist('variety')
     primary_filter = request.args.getlist('primary')
     secondary_filter = request.args.getlist('secondary')
     tertiary_filter = request.args.getlist('tertiary')
@@ -124,10 +124,10 @@ def filter_page():
     #filtering
     data = db.session.query(models.Wine)
     
-    if country_filter is not None:
-        data = data.filter(models.Wine.country == country_filter)
-    if variety_filter is not None:
-        data = data.filter(models.Wine.variety == variety_filter)
+    if country_filter:
+        data = data.filter(models.Wine.country.in_(country_filter))
+    if variety_filter:
+        data = data.filter(models.Wine.variety.in_(variety_filter))
     
     #Filtering for .getlist object is different because you need to check if there is an empty list or not.
     if primary_filter:
