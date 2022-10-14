@@ -123,7 +123,7 @@
                         <p>Country</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_countries %}
-                            {% if country_filter == i %}
+                            {% if i in country_filter %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="country" value="{{i}}" checked />
                                 <label for="{{i}}">{{i}}</label>
@@ -136,7 +136,7 @@
                             </li>
                             <br />
                             {% endif %}
-                            {%endfor%}
+                            {% endfor %}
                         </ul>
 
                     </div>
@@ -146,7 +146,7 @@
                         <p>Variety</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_varieties %}
-                            {% if variety_filter == i %}
+                            {% if i in variety_filter %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" checked />
                                 <label for="{{i}}">{{i}}</label>
@@ -168,19 +168,21 @@
                         <p>Primary Notes</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[0:6] %}
-                            {% if primary_filter == i %}
-                            <li>
-                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" checked />
-                                <label for="{{i}}">{{i}}</label>
-                            </li>
-                            <br />
-                            {% else %}
-                            <li>
-                                <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" />
-                                <label for="{{i}}">{{i}}</label>
-                            </li>
-                            <br />
-                            {% endif %}
+                                
+                                {% if i in primary_filter %}
+                                <li>
+                                    <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" checked />
+                                    <label for="{{i}}">{{i}}</label>
+                                </li>
+                                <br />
+
+                                {% else %}
+                                <li>
+                                    <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" />
+                                    <label for="{{i}}">{{i}}</label>
+                                </li>
+                                <br />
+                                {% endif %}
                             {%endfor%}
                         </ul>
                     </div>
@@ -190,12 +192,13 @@
                         <p>Primary Notes</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[6:] %}
-                            {% if primary_filter == i %}
+                            {% if i in primary_filter %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" checked />
                                 <label for="{{i}}">{{i}}</label>
                             </li>
                             <br />
+
                             {% else %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="primary" value="{{i}}" />
@@ -207,20 +210,21 @@
                         </ul>
                     </div>
 
-                    <!-- Secundary note filter column -->
+                    <!-- Secondary note filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <p>Secondary Notes</p>
                         <ul class="ks-cboxtags">
-                            {% for i in list_of_secundaries %}
-                            {% if secundary_filter == i %}
+                            {% for i in list_of_secondaries %}
+
+                            {% if i in secondary_filter %}
                             <li>
-                                <input type="checkbox" id="{{i}}" name="secundary" value="{{i}}" checked />
+                                <input type="checkbox" id="{{i}}" name="secondary" value="{{i}}" checked />
                                 <label for="{{i}}">{{i}}</label>
                             </li>
                             <br />
                             {% else %}
                             <li>
-                                <input type="checkbox" id="{{i}}" name="secundary" value="{{i}}" />
+                                <input type="checkbox" id="{{i}}" name="secondary" value="{{i}}" />
                                 <label for="{{i}}">{{i}}</label>
                             </li>
                             <br />
@@ -231,7 +235,7 @@
                         <p>Tertiary Notes</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_tertiaries %}
-                            {% if tertiary_filter == i %}
+                            {% if i in tertiary_filter %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="tertiary" value="{{i}}" checked />
                                 <label for="{{i}}">{{i}}</label>
