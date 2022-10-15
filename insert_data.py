@@ -5,7 +5,7 @@ import pandas as pd
 
 df = pd.read_csv('data/final_dataset_wines_annotated.csv')
 
-df = df.head(100)
+#df = df.head(100)
 
 df.rename(columns={'Unnamed: 0':'id'}, inplace=True)
 
