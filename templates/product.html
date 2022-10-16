@@ -12,7 +12,9 @@
       "description": "result.description",
       "additionalProperty": {
         "@type": "PropertyValue",
-        "primaryFlavor": "Cherry"
+        "primaryFlavor": "{{result.primary_flavor}}",
+        "secondaryFlavor": "{{result.secondary_flavor}}",
+        "tertiaryFlavor": "{{result.tertiary_flavor}}"
       },
       "review": {
         "@type": "Review",
@@ -39,9 +41,6 @@
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
       <div class="row gx-4 gx-lg-5 align-items-center">
-
-
-
           <div class="col-md-6">
               {% if result.id < 16666 %}
                   <img class="card-img-top mb-5 mb-md-0" src="{{url_for('static', filename='red_wine_original.png')}}" alt="Sample picture">
