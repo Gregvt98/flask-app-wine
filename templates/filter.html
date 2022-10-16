@@ -114,14 +114,14 @@
 
     <main>
 
-        <section class="py-5 text-center container">
+        <section class="py-5 container">
 
             <form action="/filter" method="GET">
                 <div class="row py-lg-5">
 
                     <!-- Country filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:darkblue">
-                        <p>Country</p>
+                        <p style="text-align:center">Country</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_countries %}
                             {% if i in country_filter %}
@@ -142,11 +142,11 @@
 
                     </div>
 
-                    <!-- Variety filter column -->
+                    <!-- Variety filter column 1-->
                     <div class="col-lg-2 col-md-2 mx-auto">
-                        <p>Variety</p>
+                        <p style="text-align:center">Variety</p>
                         <ul class="ks-cboxtags">
-                            {% for i in list_of_varieties %}
+                            {% for i in list_of_varieties[0:7] %}
                             {% if i in variety_filter %}
                             <li>
                                 <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" checked />
@@ -164,9 +164,32 @@
                         </ul>
                     </div>
 
+                    <!-- Variety filter column 2-->
+                    <div class="col-lg-2 col-md-2 mx-auto">
+                        <p style="text-align:center">Variety</p>
+                        <ul class="ks-cboxtags">
+                            {% for i in list_of_varieties[7:] %}
+                            {% if i in variety_filter %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" checked />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% else %}
+                            <li>
+                                <input type="checkbox" id="{{i}}" name="variety" value="{{i}}" />
+                                <label for="{{i}}">{{i}}</label>
+                            </li>
+                            <br />
+                            {% endif %}
+                            {%endfor%}
+                        </ul>
+                    </div>
+
+
                     <!-- Primary note filter column part 1-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:#6200EE">
-                        <p>Primary Flavor</p>
+                        <p style="text-align:center">Primary Flavor</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[0:6] %}
 
@@ -190,7 +213,7 @@
 
                     <!-- Primary note filter column part 2-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:#6200EE">
-                        <p>Primary Flavor</p>
+                        <p style="text-align:center">Primary Flavor</p>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[6:] %}
                             {% if i in primary_filter %}
@@ -214,7 +237,7 @@
                     <!-- Secondary note filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <div style="color: #230760">
-                            <p>Secondary Flavor</p>
+                            <p style="text-align:center">Secondary Flavor</p>
                             <ul class="ks-cboxtags">
                                 {% for i in list_of_secondaries %}
 
@@ -236,7 +259,7 @@
                         </div>
 
                         <div style="color:#9441fb">
-                            <p>Tertiary Flavor</p>
+                            <p style="text-align:center">Tertiary Flavor</p>
                             <ul class="ks-cboxtags">
                                 {% for i in list_of_tertiaries %}
                                 {% if i in tertiary_filter %}
