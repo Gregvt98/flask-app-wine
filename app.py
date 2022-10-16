@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 import os
+from ontology_blueprint import ontology_blueprint
 
 import models
 import random
@@ -18,6 +19,7 @@ import itertools
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.register_blueprint(ontology_blueprint, url_prefix='/ontology')
 db = SQLAlchemy(app)
 
 # Automatically tear down SQLAlchemy.
@@ -60,10 +62,6 @@ if not app.debug:
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-@app.route('/ontology')
-def ontology():
-    return render_template('ontology.html')
 
 @app.route('/')
 @app.route('/index')
