@@ -54,13 +54,14 @@
           </div>
 
           <div class="col-md-6">
-              <div class="medium mb-1">{{result.variety}}</div>
+              <div class="medium mb-1"><a href="{{url_for('filter_page', variety=result.variety)}}">{{result.variety}}</a></div>
               <h1 class="display-7 fw-bolder">{{result.title}}</h1>
               <div class="fs-5 mb-5">
                   <span>${{result.price}}</span>
               </div>
               <p class="lead">{{result.description}} - <strong>Author: <a href="https://twitter.com/{{taster_twitter_handle}}">{{result.taster_name}}</a></strong>  </p>
               <div class="fs-5 mb-5">
+
               <span class="medium mb-1">Main Flavors: </span>
               <!--change colors-->
               {% if result.primary_flavor %}
@@ -72,6 +73,7 @@
               {% if result.tertiary_flavor %}
               <a href="{{url_for('ontology.get_class', class_name='TertiaryFlavor')}}"><span class="badge rounded-pill" style="background-color:#9441fb">{{result.tertiary_flavor}}</span></a>
               {% endif %}
+
               </div>
               <div class="d-flex">
                   <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">
@@ -81,11 +83,11 @@
                   </button>
               </div>
               <div class="container mb-4 mt-4">
-                <ul class="list-group">
-                  <li class="list-group-item">Score: {{result.points}}/100</li>
-                  <li class="list-group-item">Year: {{result.year}}</li>
-                  <li class="list-group-item">Region: {{result.region_1}}</li>
-                </ul>
+                  <ul class="list-group">
+                      <li class="list-group-item">Score: {{result.points}}/100</li>
+                      <li class="list-group-item">Year: {{result.year}}</li>
+                      <li class="list-group-item">Region: {{result.region_1}}</li>
+                  </ul>
               </div>
           </div>
       </div>
