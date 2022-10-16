@@ -63,7 +63,7 @@ def about():
 
 @app.route('/ontology')
 def ontology():
-    return render_template('ontology.html')
+    return render_template('ontology_doc/contents.html')
 
 @app.route('/')
 @app.route('/index')
