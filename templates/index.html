@@ -41,12 +41,15 @@
 
   <section class="text-center container" style="padding-top: 3rem!important">
     <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
+      <div class="col-lg-8 col-md-8 mx-auto">
         <h1 class="fw-light">Wine Classification</h1>
         <p class="lead text-muted">Organizing wines according to taste profiles</p>
         <p>
-          <a href="{{url_for('filter_page')}}" class="btn btn-primary my-2">Let's find my perfect wine!</a>
-          <a href="{{url_for('filter_page', country=random_country, variety=random_variety, primary=random_primary)}}" class="btn btn-secondary my-2">Choose random filter</a>
+            <a href="{{url_for('filter_page')}}" class="btn btn-primary my-2">Let's find my perfect wine!</a><br />
+            <a href="{{url_for('filter_page', country=random_country, variety=random_variety, primary=random_primary)}}" class="btn btn-secondary my-2">Choose a random filter</a>
+            <a href="{{url_for('filter_page', country=random_country)}}" class="btn btn-secondary my-2">Choose random country</a>
+            <a href="{{url_for('filter_page', variety=random_variety)}}" class="btn btn-secondary my-2">Choose random variety</a>
+            <a href="{{url_for('filter_page', primary=random_primary)}}" class="btn btn-secondary my-2">Choose random primary</a>
         </p>
       </div>
     </div>
