@@ -39,7 +39,23 @@
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
       <div class="row gx-4 gx-lg-5 align-items-center">
-          <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://images.vivino.com/thumbs/aYimFlGMTjuSk-apP30k1g_375x500.jpg" alt="..."></div>
+
+
+
+          <div class="col-md-6">
+              {% if result.id < 16666 %}
+                  <img class="card-img-top mb-5 mb-md-0" src="{{url_for('static', filename='red_wine_original.png')}}" alt="Sample picture">
+              {% elif (result.id > 16666 and result.id < 33333) %}
+                  <img class="card-img-top mb-5 mb-md-0" src="{{url_for('static', filename='white_wine_original.png')}}" alt="Sample picture">
+              {% else %}
+                  <img class="card-img-top mb-5 mb-md-0" src="{{url_for('static', filename='bubbly_wine_original.png')}}" alt="Sample picture">
+              {% endif %}
+
+              <!--<img class="card-img-top mb-5 mb-md-0" src="https://images.vivino.com/thumbs/aYimFlGMTjuSk-apP30k1g_375x500.jpg" alt="...">-->
+
+
+
+          </div>
           <div class="col-md-6">
               <div class="medium mb-1">{{result.variety}}</div>
               <h1 class="display-7 fw-bolder">{{result.title}}</h1>
