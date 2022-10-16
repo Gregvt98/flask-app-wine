@@ -20,9 +20,9 @@ def get_class(class_name):
 def get_objectproperties_index():
     return render_template(f"""objectproperties.html""")
 
-@ontology_blueprint.route('/objectproperties/<objectproperty_name>')
+@ontology_blueprint.route('objectproperties/<objectproperty_name>')
 def get_objectproperty(objectproperty_name):
-    return render_template(f"""objectproperties/{objectproperty_name}.html""")
+    return render_template(f"""objectproperties/{objectproperty_name}""")
 
 @ontology_blueprint.route('/dataproperties')
 def get_dataproperties_index():
@@ -44,9 +44,9 @@ def get_annotationproperty(annotationproperty_name):
 def get_individuals_index():
     return render_template(f"""individuals.html""")
 
-@ontology_blueprint.route('/individuals/<individual_name>')
+@ontology_blueprint.route('individuals/<individual_name>')
 def get_individual(individual_name):
-    return render_template(f"""individuals/{individual_name}.html""")
+    return render_template(f"""individuals/{individual_name}""")
 
 @ontology_blueprint.route('/datatypes')
 def get_datatypes_index():
