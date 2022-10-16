@@ -71,7 +71,7 @@ def index():
 
     #page filters
     list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
-    list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
+    list_of_varieties = ['Pinot Noir', 'Chardonnay', 'Red Blend', 'Cabernet Sauvignon', 'Bordeaux-style Red Blend', 'Syrah', 'Rose', 'Riesling', 'Malbec', 'Nebbiolo', 'Sauvignon Blanc', 'Tempranillo', 'Sparkling Blend', 'White Blend']
     list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
     list_of_secondaries = ['Microbial']
     list_of_tertiaries = ['Oak Aging', 'General Aging']
@@ -109,7 +109,7 @@ def filter_page():
 
     #page filters
     list_of_countries = ['US', 'France', 'Italy', 'Spain', 'Argentina', 'Australia', 'Canada']
-    list_of_varieties = ['Syrah', 'Pinot Noir', 'Chardonnay', 'Sangiovese', 'Merlot', 'White Blend']
+    list_of_varieties = ['Pinot Noir', 'Chardonnay', 'Red Blend', 'Cabernet Sauvignon', 'Sangiovese', 'Syrah', 'Rose', 'Riesling', 'Malbec', 'Nebbiolo', 'Sauvignon Blanc', 'Tempranillo', 'Sparkling Blend', 'White Blend']
     list_of_primaries = ['Earth','Vegetable','Spice','Noble Rot','Dried Fruit','Black Fruit','Red Fruit','Tropical Fruit','Tree Fruit','Citrus','Flower']
     list_of_secondaries = ['Microbial']
     list_of_tertiaries = ['Oak Aging', 'General Aging']
