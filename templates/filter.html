@@ -333,15 +333,15 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-                        {% if page_num %}
-                        {% if pagination.page == page_num %}
-                        <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num) }}&{{request.query_string.decode()}}">{{ page_num }}</a></li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num) }}&{{request.query_string.decode()}}">{{ page_num }}</a></li>
-                        {% endif %}
-                        {% else %}
-                        ...
-                        {% endif %}
+                            {% if page_num %}
+                                {% if pagination.page == page_num %}
+                                <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num, country=country_filter, variety=variety_filter, primary=primary_filter, secondary=secondary_filter, tertiary=tertiary_filter) }}">{{ page_num }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="{{ url_for('filter_page', page=page_num, country=country_filter, variety=variety_filter, primary=primary_filter, secondary=secondary_filter, tertiary=tertiary_filter) }}">{{ page_num }}</a></li>
+                                {% endif %}
+                            {% else %}
+                            ...
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </nav>
@@ -353,6 +353,10 @@
 
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        params = params.has('country','variety','primary_flavor','secondary_flavor','tertiary_flavor')
+    </script>
 
 
 </body>
