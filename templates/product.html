@@ -65,13 +65,13 @@
               <span class="medium mb-1">Main Flavors: </span>
               <!--change colors-->
               {% if result.primary_flavor %}
-              <a href="{{url_for('ontology')}}"><span class="badge rounded-pill" style="background-color:#6200EE">{{result.primary_flavor}}</span></a>
+              <a href="{{url_for('ontology.get_class', class_name='PrimaryFlavor')}}"><span class="badge rounded-pill" style="background-color:#6200EE">{{result.primary_flavor}}</span></a>
               {% endif %}
               {% if result.secondary_flavor %}
-              <span class="badge rounded-pill" style="background-color:#230760">{{result.secondary_flavor}}</span>
+              <a href="{{url_for('ontology.get_class', class_name='SecondaryFlavor')}}"><span class="badge rounded-pill" style="background-color:#230760">{{result.secondary_flavor}}</span></a>
               {% endif %}
               {% if result.tertiary_flavor %}
-              <span class="badge rounded-pill" style="background-color:#9441fb">{{result.tertiary_flavor}}</span>
+              <a href="{{url_for('ontology.get_class', class_name='TertiaryFlavor')}}"><span class="badge rounded-pill" style="background-color:#9441fb">{{result.tertiary_flavor}}</span></a>
               {% endif %}
               </div>
               <div class="d-flex">

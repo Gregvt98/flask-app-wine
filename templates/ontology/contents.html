@@ -1,3 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}Ontology Contents{% endblock %}
+
+{% block content %}
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -26,24 +32,22 @@
 <div class='codebox'>
 <ul>
 <li>
-<a href='ontologies/wine_joy_ontology___988768210.html' >wine_joy_ontology</a></li>
-<li>
-<a href='classes/index.html' >Classes</a> (41)
+<a href="{{url_for('ontology.get_classes_index')}}">Classes</a> (41)
 </li>
 <li>
-<a href='objectproperties/index.html' >Object Properties</a> (7)
+<a href="{{url_for('ontology.get_objectproperties_index')}}" >Object Properties</a> (7)
 </li>
 <li>
-<a href='dataproperties/index.html' >Data Properties</a> (3)
+<a href="{{url_for('ontology.get_dataproperties_index')}}" >Data Properties</a> (3)
 </li>
 <li>
-<a href='annotationproperties/index.html' >Annotation Properties</a> (2)
+<a href="{{url_for('ontology.get_annotationproperties_index')}}" >Annotation Properties</a> (2)
 </li>
 <li>
-<a href='individuals/index.html' >Individuals</a> (121)
+<a href="{{url_for('ontology.get_individuals_index')}}" >Individuals</a> (121)
 </li>
 <li>
-<a href='datatypes/index.html' >Datatypes</a> (3)
+<a href="{{url_for('ontology.get_datatypes_index')}}" >Datatypes</a> (3)
 </li>
 </ul>
 </div>
@@ -55,3 +59,5 @@
 </p>
 </body>
 </html>
+
+{% endblock %}

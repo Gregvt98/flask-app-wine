@@ -121,7 +121,7 @@
 
                     <!-- Primary note filter column part 1-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:#6200EE">
-                        <p style="text-align:center">Primary Flavor</p>
+                        <a href="{{url_for('ontology.get_class', class_name='PrimaryFlavor')}}"><p style="text-align:center">Primary Flavor</p></a>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[0:6] %}
 
@@ -145,7 +145,7 @@
 
                     <!-- Primary note filter column part 2-->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:#6200EE">
-                        <p style="text-align:center">Primary Flavor</p>
+                        <a href="{{url_for('ontology.get_class', class_name='PrimaryFlavor')}}"><p style="text-align:center">Primary Flavor</p></a>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_primaries[6:] %}
                             {% if i in primary_filter %}
@@ -169,7 +169,7 @@
                     <!-- Secondary note filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto">
                         <div style="color: #230760">
-                            <p style="text-align:center">Secondary Flavor</p>
+                            <a href="{{url_for('ontology.get_class', class_name='SecondaryFlavor')}}"><p style="text-align:center">Secondary Flavor</p></a>
                             <ul class="ks-cboxtags">
                                 {% for i in list_of_secondaries %}
 
@@ -191,7 +191,7 @@
                         </div>
 
                         <div style="color:#9441fb">
-                            <p style="text-align:center">Tertiary Flavor</p>
+                            <a href="{{url_for('ontology.get_class', class_name='TertiaryFlavor')}}"><p style="text-align:center">Tertiary Flavor</p></a>
                             <ul class="ks-cboxtags">
                                 {% for i in list_of_tertiaries %}
                                 {% if i in tertiary_filter %}
@@ -214,7 +214,7 @@
 
                     <!-- Country filter column -->
                     <div class="col-lg-2 col-md-2 mx-auto" style="color:darkblue">
-                        <p style="text-align:center">Country</p>
+                        <a href="{{url_for('ontology.get_class', class_name='Country')}}"><p style="text-align:center">Country</p></a>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_countries %}
                             {% if i in country_filter %}
@@ -237,7 +237,7 @@
 
                     <!-- Variety filter column 1-->
                     <div class="col-lg-2 col-md-2 mx-auto">
-                        <p style="text-align:center">Variety</p>
+                        <a href="{{url_for('ontology.get_class', class_name='WineGrape')}}"><p style="text-align:center">Wine Grape</p></a>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_varieties[0:7] %}
                             {% if i in variety_filter %}
@@ -259,7 +259,7 @@
 
                     <!-- Variety filter column 2-->
                     <div class="col-lg-2 col-md-2 mx-auto">
-                        <p style="text-align:center">Variety</p>
+                        <a href="{{url_for('ontology.get_class', class_name='WineGrape')}}"><p style="text-align:center">Wine Grape</p></a>
                         <ul class="ks-cboxtags">
                             {% for i in list_of_varieties[7:] %}
                             {% if i in variety_filter %}
