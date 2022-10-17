@@ -3,6 +3,7 @@ Flask-SQLAlchemy
 SQLAlchemy-serializer
 Flask-WTF
 gunicorn
+pandas
 # WTForms
 # coverage
 # ecdsa
