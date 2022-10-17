@@ -146,7 +146,7 @@ def index():
 
     #pagination
     page = request.args.get('page', 1, type=int)
-    pagination = db.session.query(models.Wine).order_by(models.Wine.title).paginate(
+    pagination = db.session.query(Wine).order_by(Wine.title).paginate(
         page=1, per_page=9)
 
     return render_template('index.html', 
@@ -183,28 +183,28 @@ def filter_page():
     tertiary_filter = request.args.getlist('tertiary')
 
     #filtering
-    data = db.session.query(models.Wine)
+    data = db.session.query(Wine)
     
     if country_filter:
-        data = data.filter(models.Wine.country.in_(country_filter))
+        data = data.filter(Wine.country.in_(country_filter))
     if variety_filter:
-        data = data.filter(models.Wine.variety.in_(variety_filter))
+        data = data.filter(Wine.variety.in_(variety_filter))
     
     #Filtering for .getlist object is different because you need to check if there is an empty list or not.
     if primary_filter:
         for f in primary_filter:
-            data = data.filter(models.Wine.primary_flavor.contains(f))
+            data = data.filter(Wine.primary_flavor.contains(f))
     
     if secondary_filter:
         for f in secondary_filter:
-            data = data.filter(models.Wine.secondary_flavor.contains(f))
+            data = data.filter(Wine.secondary_flavor.contains(f))
 
     if tertiary_filter:
         for f in tertiary_filter:
-            data = data.filter(models.Wine.tertiary_flavor.contains(f))
+            data = data.filter(Wine.tertiary_flavor.contains(f))
 
 
-    data = data.order_by(models.Wine.title)
+    data = data.order_by(Wine.title)
 
     #pagination
     page = request.args.get('page', 1, type=int)
@@ -249,13 +249,13 @@ def filter_page():
 @app.route('/search') 
 def search():
     query = request.args.get('search') 
-    req_search = db.session.query(models.Wine).filter_by(id=query) ### filter on multiple fields
+    req_search = db.session.query(Wine).filter_by(id=query) ### filter on multiple fields
     return render_template('search.html', req_search=req_search) 
 
 @app.route('/wine/<int:id>')
 def get_wine(id):
     "Takes an id, return product page"
-    entry = db.session.query(models.Wine).get(id)
+    entry = db.session.query(Wine).get(id)
     wine_d = entry.to_dict()
     #return jsonify(wine_d)
     return render_template('product.html', result=wine_d)
@@ -264,7 +264,7 @@ def get_wine(id):
 @app.route('/wine/list/<int:limit>')
 def wine_list(limit):
     "Takes a limit, return a list of wines"
-    wines = db.session.query(models.Wine).limit(limit).all()
+    wines = db.session.query(Wine).limit(limit).all()
     results = [w.to_dict() for w in wines]
     return jsonify(results)
 
