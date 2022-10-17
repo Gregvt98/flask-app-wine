@@ -1,9 +1,10 @@
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy_serializer import SerializerMixin
-from app import db
+#from app import db
 
 import pandas as pd
 
@@ -54,7 +55,7 @@ class Wine(Base, SerializerMixin):
 # Create tables.
 Base.metadata.create_all(bind=engine)
 
-"""
+
 df = pd.read_csv('data/final_dataset_wines_annotated.csv')
 
 #df = df.head(100)
