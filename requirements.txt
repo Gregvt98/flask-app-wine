@@ -2,6 +2,7 @@ Fabric
 Flask-SQLAlchemy
 SQLAlchemy-serializer
 Flask-WTF
+gunicorn
 # WTForms
 # coverage
 # ecdsa
